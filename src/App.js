@@ -17,11 +17,23 @@ function App() {
       return { success: false, errors };
     }
   }
+
+  async function login(loginData) {
+    try {
+      let token = await JoblyApi.login(loginData);
+      setToken(token);
+      return { success: true };
+    } catch (errors) {
+      console.error("login failed", errors);
+      return { success: false, errors };
+    }
+  }
+
   return (
     <BrowserRouter>
       <div className="App">
         <NavBar />
-        <Components signup={signup} />
+        <Components signup={signup} login={login} />
       </div>
     </BrowserRouter>
   );
