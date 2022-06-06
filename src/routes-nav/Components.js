@@ -8,7 +8,7 @@ import LoginForm from "../users/LoginForm";
 import SignupForm from "../users/SignupForm";
 import ProfileForm from "../users/ProfileForm";
 
-function Components() {
+function Components({ signup }) {
   return (
     <div>
       <Routes>
@@ -17,7 +17,7 @@ function Components() {
         <Route path="/companies/:handle" element={<CompanyDetails />} />
         <Route path="/jobs" element={<JobList />} />
         <Route path="/login" element={<LoginForm />} />
-        <Route path="/signup" element={<SignupForm />} />
+        <Route path="/signup" element={<SignupForm signup={signup} />} />
         <Route path="/profile" element={<ProfileForm />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
