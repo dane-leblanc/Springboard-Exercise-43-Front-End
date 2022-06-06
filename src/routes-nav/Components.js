@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Homepage from "../homepage/Homepage";
 import CompanyList from "../companies/CompanyList";
 import CompanyDetails from "../companies/CompanyDetails";
@@ -19,6 +19,7 @@ function Components() {
         <Route path="/login" element={<LoginForm />} />
         <Route path="/signup" element={<SignupForm />} />
         <Route path="/profile" element={<ProfileForm />} />
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </div>
   );

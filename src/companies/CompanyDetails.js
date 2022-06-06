@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import JoblyApi from "../api/api";
 import LoadingSpinner from "../common/LoadingSpinner";
+import "./CompanyDetails.css";
 
 function CompanyDetails() {
   const { handle } = useParams();
@@ -17,8 +18,15 @@ function CompanyDetails() {
   if (!company) return <LoadingSpinner />;
 
   return (
-    <div>
-      <h1>These are the company details for {company.name}</h1>
+    <div className="CompanyDetails mt-4">
+      <h2>
+        {company.name}
+        {company.logoUrl && (
+          <img className="ml-2" src={company.logoUrl} alt="logo" />
+        )}
+      </h2>
+      <p>{company.description}</p>
+      <p>Employees: {company.numEmployees}</p>
     </div>
   );
 }
