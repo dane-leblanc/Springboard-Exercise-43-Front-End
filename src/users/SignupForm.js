@@ -17,7 +17,7 @@ function SignupForm({ signup }) {
     e.preventDefault();
     let res = await signup(formData);
     if (res.success) {
-      navigate("/companies");
+      navigate("/");
     } else {
       setFormErrors(res.errors);
     }

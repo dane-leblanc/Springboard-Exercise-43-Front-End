@@ -14,7 +14,7 @@ function LoginForm({ login }) {
     e.preventDefault();
     let res = await login(formData);
     if (res.success) {
-      navigate("/companies");
+      navigate("/");
     } else {
       setFormErrors(res.errors);
     }

@@ -1,12 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter } from "react-router-dom";
 import NavBar from "./routes-nav/NavBar";
 import Components from "./routes-nav/Components";
 import JoblyApi from "./api/api";
+import UserContext from "./users/UserContext";
+import { decodeToken } from "react-jwt";
 import "./App.css";
 
 function App() {
   const [token, setToken] = useState("");
+  const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(
+    function loadUserInfo() {
+      async function getCurrentUser() {
+        if (token) {
+          try {
+            let { username } = decodeToken(token);
+            JoblyApi.token = token;
+            let currentUser = await JoblyApi.getCurrentUser(username);
+            setCurrentUser(currentUser);
+          } catch (err) {
+            console.error("App loadUserInfo: problem loading", err);
+            setCurrentUser(null);
+          }
+        }
+      }
+      getCurrentUser();
+    },
+    [token]
+  );
+
   async function signup(signupData) {
     try {
       let token = await JoblyApi.signup(signupData);
@@ -29,12 +53,19 @@ function App() {
     }
   }
 
+  function logout() {
+    setCurrentUser(null);
+    setToken(null);
+  }
+
   return (
     <BrowserRouter>
-      <div className="App">
-        <NavBar />
-        <Components signup={signup} login={login} />
-      </div>
+      <UserContext.Provider value={{ currentUser, setCurrentUser }}>
+        <div className="App">
+          <NavBar logout={logout} />
+          <Components signup={signup} login={login} />
+        </div>
+      </UserContext.Provider>
     </BrowserRouter>
   );
 }
