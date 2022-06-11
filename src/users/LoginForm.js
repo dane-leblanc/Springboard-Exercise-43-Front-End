@@ -11,8 +11,9 @@ function LoginForm({ login }) {
     password: "",
   });
 
-  const currentUser = useContext(UserContext);
+  const { currentUser } = useContext(UserContext);
   if (currentUser) {
+    console.debug(currentUser);
     return <Navigate to="/" />;
   }
 

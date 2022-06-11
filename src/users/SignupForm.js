@@ -13,8 +13,8 @@ function SignupForm({ signup }) {
     email: "",
   });
   const [formErrors, setFormErrors] = useState([]);
-  const currentUser = useContext(UserContext);
-  
+  const { currentUser } = useContext(UserContext);
+
   if (currentUser) {
     return <Navigate to="/" />;
   }
