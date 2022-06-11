@@ -1,14 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Alert from "../common/Alert";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
+import UserContext from "../users/UserContext";
 
 function LoginForm({ login }) {
   const navigate = useNavigate();
+  const [formErrors, setFormErrors] = useState([]);
   const [formData, setFormData] = useState({
     username: "",
     password: "",
   });
-  const [formErrors, setFormErrors] = useState([]);
+
+  const currentUser = useContext(UserContext);
+  if (currentUser) {
+    return <Navigate to="/" />;
+  }
 
   async function handleSubmit(e) {
     e.preventDefault();

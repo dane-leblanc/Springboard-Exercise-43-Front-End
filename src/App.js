@@ -4,11 +4,14 @@ import NavBar from "./routes-nav/NavBar";
 import Components from "./routes-nav/Components";
 import JoblyApi from "./api/api";
 import UserContext from "./users/UserContext";
+import useLocalStorage from "./hooks/useLocalStorage";
 import { decodeToken } from "react-jwt";
 import "./App.css";
 
+export const TOKEN_STORAGE_ID = "jobly-token";
+
 function App() {
-  const [token, setToken] = useState("");
+  const [token, setToken] = useLocalStorage(TOKEN_STORAGE_ID);
   const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(
